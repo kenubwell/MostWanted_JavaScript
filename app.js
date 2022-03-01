@@ -29,7 +29,6 @@ function app(people){
 
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
-
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
 
   if(!person){
@@ -80,8 +79,10 @@ function searchByName(people){
     }
   })
   // TODO: find the person single person object using the name they entered.
-  return foundPerson;
+
+  return mainMenu(foundPerson[0], people);
 }
+
 
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
 function searchByEyeColor(people){
@@ -101,22 +102,22 @@ function searchListOfTraits(people){
   while (userConfirmed === false){
     let userTraitInput = promptFor("Let's try searching by a trait. Please enter in a trait to search by: 'dob', 'gender' , 'height' (i.e. 71), 'weight', 'eye color', or 'occupation'. Enter in 'done' once you have found the person.", autoValid);
       if(userTraitInput == 'dob'){
-        listOfTraits = dobSearch(listOfTraits);
+        listOfTraits = searchByDOB(listOfTraits);
       }
       else if(userTraitInput == 'gender'){
-        listOfTraits = genderSearch(listOfTraits);
+        listOfTraits = searchByGender(listOfTraits);
       }
       else if(userTraitInput == 'height'){
-        listOfTraits = heightSearch(listOfTraits);
+        listOfTraits = searchByHeight(listOfTraits);
       }
       else if(userTraitInput == 'weight'){
-        listOfTraits = weightSearch(listOfTraits);
+        listOfTraits = searchByWeight(listOfTraits);
       }
       else if(userTraitInput == 'eye color'){
-        listOfTraits = eyeSearch(listOfTraits);
+        listOfTraits = searchByEyeColor(listOfTraits);
       }
       else if(userTraitInput == 'occupation'){
-        listOfTraits = occupationSearch(listOfTraits);
+        listOfTraits = searchByOccupation(listOfTraits);
       }
       else if(userTraitInput == 'done'){
         userConfirmed = true;
