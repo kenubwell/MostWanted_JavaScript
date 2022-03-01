@@ -90,33 +90,32 @@ function searchByName(people){
 function searchListOfTraits(people){
   let userConfirmed = false;
   let listOfTraits = people;
-  let userTraitInput = "";
 
   while (userConfirmed === false){
-    let userTraitInput = promptFor("Let's try searching by a single trait. Please enter in one of the following traits:\n 'dob',\n 'gender',\n 'height',\n 'weight',\n 'eye color',\n 'occupation'\n Enter in 'done' once you have found your person.", autoValid);
-      if(userTraitInput == 'dob'){
+    let traitInput = promptFor("Let's try searching by a single trait. Please enter in one of the following traits:\n 'dob',\n 'gender',\n 'height',\n 'weight',\n 'eye color',\n 'occupation'\n Enter in 'done' once you have found your person.", autoValid);
+      if(traitInput == 'dob'){
         listOfTraits = searchByDOB(listOfTraits);
       }
-      else if(userTraitInput == 'gender'){
+      else if(traitInput == 'gender'){
         listOfTraits = searchByGender(listOfTraits);
       }
-      else if(userTraitInput == 'height'){
+      else if(traitInput == 'height'){
         listOfTraits = searchByHeight(listOfTraits);
       }
-      else if(userTraitInput == 'weight'){
+      else if(traitInput == 'weight'){
         listOfTraits = searchByWeight(listOfTraits);
       }
-      else if(userTraitInput == 'eye color'){
+      else if(traitInput == 'eye color'){
         listOfTraits = searchByEyeColor(listOfTraits);
       }
-      else if(userTraitInput == 'occupation'){
+      else if(traitInput == 'occupation'){
         listOfTraits = searchByOccupation(listOfTraits);
       }
-      else if(userTraitInput == 'done'){
+      else if(traitInput == 'done'){
         userConfirmed = true;
       }
   }
-  return userTraitInput;
+  return searchByName(people);
 }
 
 
@@ -141,7 +140,6 @@ function searchByDOB(people){
   else if (confirmedDOB.length == 0){
     alert(`No person has a date of birth of "${dobInput}"`);
   }
-
   return confirmedDOB;
 }
 
@@ -246,6 +244,7 @@ function searchByOccupation(people){
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
 function searchByEyeColor(people){
   let eyeColorInput = promptFor("Enter in the eye color. For example, 'brown'. NOTE: Input is format specific.", autoValid);
+  let confirmedList = [];
   let confirmedEyeColor = people.filter(function(element){
     if(element.eyeColor === eyeColorInput){
       return true;
@@ -254,6 +253,15 @@ function searchByEyeColor(people){
       return false;
     }
   })
+  if(confirmedEyeColor.length > 0){
+    for(let i = 0; i < confirmedEyeColor.length; i++){
+      confirmedList.push(" " + confirmedEyeColor[i].firstName + " " + confirmedEyeColor[i].lastName);
+    }
+    alert(`The following have "${eyeColorInput}" as their eye color:\n ${confirmedList}`);
+  }
+  else if(confirmedEyeColor.length == 0){
+    alert(`No person has an eye color of "${eyeColorInput}"`);
+  }
   return confirmedEyeColor;
 }
 
