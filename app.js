@@ -42,7 +42,7 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-    displayPerson();
+    displayPerson(person);
     break;
     case "family":
     // TODO: get person's family
@@ -81,10 +81,6 @@ function searchByName(people){
     }
   })
   // TODO: find the person single person object using the name they entered.
-<<<<<<< HEAD
-=======
-
->>>>>>> 3482e9ceaba6e4ec3226d54fa27ad2a4d1de89dc
   return mainMenu(foundPerson[0], people);
 }
 
