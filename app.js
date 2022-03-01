@@ -134,22 +134,78 @@ function searchByDOB(people){
 }
 
 function searchByGender(people){
-  
+  let userGenderInput = promptFor("Enter in the gender, either 'female' or 'male'. NOTE: Input is format specific.", autoValid);
+  let confirmedGender = people.filter(function(element){
+    if(element.gender === userGenderInput){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return confirmedGender;
 }
 
+
 function searchByHeight(people){
-  
+  let userHeightInput = promptFor("Enter in the height in inches. For example, '71'. NOTE: Input is format specific.", autoValid);
+  let confirmedList = [];
+  let confirmedHeight = people.filter(function(element){
+    if(element.height == userHeightInput){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+
+  for(let i = 0; i < confirmedHeight.length; i ++){
+    confirmedList.push(confirmedHeight[i].firstName + " " + confirmedHeight[i].lastName);
+  }
+  let feedback = `The following have ${userHeightInput} lbs as their weight: ${confirmedList}`;
+  alert(feedback);
+  return confirmedHeight;
+ 
 }
 
 function searchByWeight(people){
-  
+  let userWeightInput = promptFor("Enter in the weight in pounds. For example, '175'. NOTE: Input is format specific.", autoValid);
+  let confirmedWeight = people.filter(function(element){
+    if(element.weight === userWeightInput){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return confirmedWeight;
+}
+function searchByOccupation(people){
+  let userOccupationInput = promptFor("Enter in the weight in pounds. For example, '175'. NOTE: Input is format specific.", autoValid);
+  let confirmedWeight = people.filter(function(element){
+    if(element.weight === userWeightInput){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return confirmedWeight;
 }
 
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
 function searchByEyeColor(people){
-
+  let userEyeColorInput = promptFor("Enter in the eye color. For example, 'brown'. NOTE: Input is format specific.", autoValid);
+  let confirmedEyeColor = people.filter(function(element){
+    if(element.eyeColor === userEyeColorInput){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return confirmedEyeColor;
 }
-
 
 
 
