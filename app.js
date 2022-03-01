@@ -45,7 +45,7 @@ function mainMenu(person, people){
     displayPerson(person);
     break;
     case "family":
-    displayFamily(person);
+    displayPersonFamily(person);
     // TODO: get person's family
     break;
     case "descendants":
@@ -156,6 +156,7 @@ function searchByGender(people){
       return false;
     }
   })
+
   if(confirmedGender.length > 0){
     for(let i = 0; i < confirmedGender.length; i ++){
       confirmedList.push(" " + confirmedGender[i].firstName + " " + confirmedGender[i].lastName);
@@ -185,7 +186,7 @@ function searchByHeight(people){
     for(let i = 0; i < confirmedHeight.length; i ++){
       confirmedList.push(" " + confirmedHeight[i].firstName + " " + confirmedHeight[i].lastName);
     }
-    alert(`The following have "${heightInput}" lbs as their weight:\n ${confirmedList}`);
+    alert(`The following have "${heightInput}" inches as their height:\n ${confirmedList}`);
   }
   else if(confirmedHeight.length == 0){
     alert(`No person has a height of "${heightInput}" inches`);
@@ -197,28 +198,48 @@ function searchByHeight(people){
 //function for weight trait
 function searchByWeight(people){
   let weightInput = promptFor("Enter in the weight in pounds. For example, '175'. NOTE: Input is format specific.", autoValid);
+  let confirmedList = [];
   let confirmedWeight = people.filter(function(element){
-    if(element.weight === weightInput){
+    if(element.weight == weightInput){
       return true;
     }
     else{
       return false;
     }
   })
+  if(confirmedWeight.length > 0){
+    for(let i = 0; i < confirmedWeight.length; i++){
+      confirmedList.push(" " + confirmedWeight[i].firstName + " " + confirmedWeight[i].lastName);
+    }
+    alert(`The following have "${weightInput}" lbs as their weight:\n ${confirmedList}`);
+  }
+  else if(confirmedWeight.length == 0){
+    alert(`No person has a weight of "${weightInput}" lbs`);
+  }
   return confirmedWeight;
 }
 
 //function for occupation trait
 function searchByOccupation(people){
   let occupationInput = promptFor("Enter in the occupation. For example, 'programmer'. NOTE: Input is format specific.", autoValid);
+  let confirmedList = [];
   let confirmedOccupation = people.filter(function(element){
-    if(element.weight === occupationInput){
+    if(element.occupation == occupationInput){
       return true;
     }
     else{
       return false;
     }
   })
+  if(confirmedOccupation.length > 0){
+    for(let i = 0; i < confirmedOccupation.length; i++){
+      confirmedList.push(" " + confirmedOccupation[i].firstName + " " + confirmedOccupation[i].lastName);
+    }
+    alert(`The following have "${occupationInput}" as their profession:\n ${confirmedList}`);
+  }
+  else if(confirmedOccupation.length == 0){
+    alert(`No person has an occupation of "${occupationInput}"`);
+  }
   return confirmedOccupation;
 }
 
