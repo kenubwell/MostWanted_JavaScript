@@ -18,6 +18,7 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
+      searchResults = searchListOfTraits(people);
       break;
       default:
     app(people); // restart app
@@ -91,6 +92,41 @@ function searchByEyeColor(people){
 
 //TODO: add other trait filter functions here.
 
+//Function to resolve the no case associated with the intial prompt
+//Function displays the list of traits that the user can search with
+
+function searchListOfTraits(people){
+  let userConfirmed = false;
+  let listOfTraits = people;
+  let userTraitInput = "";
+
+  while (userConfirmed === false){
+    let userTraitInput = promptFor("Let's try searching by a trait. Please enter in a trait to search by: 'dob', 'gender' , 'height' (i.e. 71), 'weight', 'eye color', or 'occupation'. Enter in 'done' once you have found the person.", autoValid);
+      if(userTraitInput == 'dob'){
+        listOfTraits = dobSearch(listOfTraits);
+      }
+      else if(userTraitInput == 'gender'){
+        listOfTraits = genderSearch(listOfTraits);
+      }
+      else if(userTraitInput == 'height'){
+        listOfTraits = heightSearch(listOfTraits);
+      }
+      else if(userTraitInput == 'weight'){
+        listOfTraits = weightSearch(listOfTraits);
+      }
+      else if(userTraitInput == 'eye color'){
+        listOfTraits = eyeSearch(listOfTraits);
+      }
+      else if(userTraitInput == 'occupation'){
+        listOfTraits = occupationSearch(listOfTraits);
+      }
+      else if(userTraitInput == 'done'){
+        userConfirmed = true;
+      }
+  }
+  return userTraitInput;
+}
+
 
 
 //#endregion
@@ -159,5 +195,6 @@ function autoValid(input){
 function customValidation(input){
   
 }
+
 
 //#endregion
