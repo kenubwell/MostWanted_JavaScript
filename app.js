@@ -26,7 +26,7 @@ function app(people){
   }
   
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
-  mainMenu(searchResults, people);
+  //mainMenu(searchResults, people);
 }
 
 // Menu function to call once you find who you are looking for
@@ -240,8 +240,25 @@ function displayPerson(person){
 }
 
 function displayPersonFamily(person){
-  let personInfo = "Parents: " + person.parents.firstName + ' ' + person.parents.lastName + '\n';
-  personInfo += "Spouse: " + person.currentSpouse.firstName + ' ' + person.currentSpouse.lastName + '\n';
+  let personArray = [person];
+  let personInfo = "Parents: " + personArray.filter(function(person){
+    if(person.parents == data.id){
+      return data.firstName
+    }
+  }) + ' ' + personArray.filter(function(person){
+    if(person.parents == data.id){
+      return data.lastName
+    }
+  }) + '\n';
+  personInfo += "Spouse: " + personArray.filter(function(person){
+    if(person.currentSpouse == data.id){
+      return data.firstName
+    }
+  }) + ' ' + personArray.filter(function(person){
+    if(person.currentSpouse == data.id){
+      return data.lastName
+    }
+  }) + '\n';
   alert(personInfo);
 }
 //#endregion
