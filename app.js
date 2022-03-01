@@ -83,17 +83,8 @@ function searchByName(people){
   return mainMenu(foundPerson[0], people);
 }
 
-
-//unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
-function searchByEyeColor(people){
-
-}
-
-//TODO: add other trait filter functions here.
-
 //Function to resolve the no case associated with the intial prompt
 //Function displays the list of traits that the user can search with
-
 function searchListOfTraits(people){
   let userConfirmed = false;
   let listOfTraits = people;
@@ -125,6 +116,41 @@ function searchListOfTraits(people){
   }
   return userTraitInput;
 }
+
+
+//TODO: add other trait filter functions here.
+function searchByDOB(people){
+  let userDOBInput = promptFor("Enter in the date of birth in the following format 'M/DD/YYYY' (e.g. 1/18/1949). NOTE: Input is format specific.", autoValid);
+  let confirmedDOB = people.filter(function(element){
+    if(element.dob === userDOBInput){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return confirmedDOB;
+}
+
+function searchByGender(people){
+  
+}
+
+function searchByHeight(people){
+  
+}
+
+function searchByWeight(people){
+  
+}
+
+//unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
+function searchByEyeColor(people){
+
+}
+
+
+
 
 
 
