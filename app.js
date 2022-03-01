@@ -266,37 +266,6 @@ function displayPerson(person){
   alert(personInfo);
 }
 
-<<<<<<< HEAD
-//function to display family from the display menu options
-// function displayFamily(person, people){
-//   let parents = [];
-//   let sibilings = [];
-//   let confirmedParents = people.filter(function(element){
-//     if(element.id == person.parent[0] || element.id == person.parent[1]){
-//       return true;
-//     }
-//     else{
-//       return false;
-//     }
-//   })
-
-//   if (confirmedParents.length > 0){
-//     for(let i = 0; i < confirmedParents.length; i ++){
-//       parents.push(confirmedParents[i].firstName + " " + confirmedParent[i].lastName);
-//     }
-//   }
-//   else if (confirmedParents. length == 0){
-//     alert(`There are no parents for ${person}.`)
-//   }
-
-//   let feedback = `The following have ${userHeightInput} lbs as their weight: ${confirmedList}`;
-//   alert(feedback);
-//   return confirmedParents;
- 
-// }
-
-
-=======
 function displayPersonFamily(person){
   let personArray = [person];
   let personInfo = "Parents: " + personArray.filter(function(person){
@@ -319,7 +288,6 @@ function displayPersonFamily(person){
   }) + '\n';
   alert(personInfo);
 }
->>>>>>> f4add9999424eab7926fa25f4febb7983446f06a
 //#endregion
 
 
