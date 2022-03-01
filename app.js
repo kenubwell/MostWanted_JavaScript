@@ -6,6 +6,8 @@
 /////////////////////////////////////////////////////////////////
 //#region 
 
+
+
 // app is the function called to start the entire application
 function app(people){
   let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
@@ -72,14 +74,14 @@ function searchByName(people){
 
   let foundPerson = people.filter(function(potentialMatch){
     if(potentialMatch.firstName === firstName && potentialMatch.lastName === lastName){
-      return true;
+      return true
     }
     else{
       return false;
     }
   })
   // TODO: find the person single person object using the name they entered.
-  return foundPerson;
+  return mainMenu(foundPerson[0], people);
 }
 
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
