@@ -45,6 +45,7 @@ function mainMenu(person, people){
     displayPerson(person);
     break;
     case "family":
+    displayPersonFamily(person);
     // TODO: get person's family
     break;
     case "descendants":
@@ -150,12 +151,17 @@ function displayPerson(person){
   personInfo += "Last Name: " + person.lastName + "\n";
   personInfo += "Height: " + person.height + "\n";
   personInfo += "Weight: " + person.weight + "\n";
-  personInfo += "Age: " + person.age + "\n";
+  personInfo += "DOB: " + person.dob + "\n";
   personInfo += "Occupation: " + person.occupation + "\n";
   personInfo += "Eye Color: " + person.eyeColor + "\n";
   alert(personInfo);
 }
 
+function displayPersonFamily(person){
+  let personInfo = "Parents: " + person.parents.firstName + ' ' + person.parents.lastName + '\n';
+  personInfo += 'Spouse: ' + person.currentSpouse.firstName + ' ' + person.currentSpouse.lastName + '\n';
+  alert(personInfo);
+}
 //#endregion
 
 
