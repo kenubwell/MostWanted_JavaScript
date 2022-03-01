@@ -45,6 +45,7 @@ function mainMenu(person, people){
     displayPerson(person);
     break;
     case "family":
+    displayFamily(person);
     // TODO: get person's family
     break;
     case "descendants":
@@ -85,14 +86,14 @@ function searchByName(people){
 }
 
 //Function to resolve the no case associated with the intial prompt
-//Function displays the list of traits that the user can search with
+//Function displays the list of individual traits that the user can search with
 function searchListOfTraits(people){
   let userConfirmed = false;
   let listOfTraits = people;
   let userTraitInput = "";
 
   while (userConfirmed === false){
-    let userTraitInput = promptFor("Let's try searching by a trait. Please enter in a trait to search by: 'dob', 'gender' , 'height' (i.e. 71), 'weight', 'eye color', or 'occupation'. Enter in 'done' once you have found the person.", autoValid);
+    let userTraitInput = promptFor("Let's try searching by a single trait. Please enter in one of the following traits:\n 'dob',\n 'gender',\n 'height',\n 'weight',\n 'eye color',\n 'occupation'\n Enter in 'done' once you have found your person.", autoValid);
       if(userTraitInput == 'dob'){
         listOfTraits = searchByDOB(listOfTraits);
       }
@@ -121,69 +122,83 @@ function searchListOfTraits(people){
 
 //TODO: add other trait filter functions here.
 function searchByDOB(people){
-  let userDOBInput = promptFor("Enter in the date of birth in the following format 'M/DD/YYYY' (e.g. 1/18/1949). NOTE: Input is format specific.", autoValid);
+  let dobInput = promptFor("Enter in the date of birth in the following format 'MM/DD/YYYY' for double digit months (e.g. 12/18/1952) or 'M/DD/YYYY' for single digit months (e.g. 1/18/1949). NOTE: Input is format specific.", autoValid);
+  let confirmedList = [];
   let confirmedDOB = people.filter(function(element){
-    if(element.dob === userDOBInput){
+    if(element.dob == dobInput){
       return true;
     }
     else{
       return false;
     }
   })
+  if(confirmedDOB.length > 0){
+    for(let i = 0; i < confirmedDOB.length; i ++){
+      confirmedList.push(" " + confirmedDOB[i].firstName + " " + confirmedDOB[i].lastName);
+    }
+    alert(`The following have "${dobInput}" as their date of birth:\n ${confirmedList}`);
+  }
+  else if (confirmedDOB.length == 0){
+    alert(`No person has a date of birth of "${dobInput}"`);
+  }
+
   return confirmedDOB;
 }
 
 function searchByGender(people){
-  let userGenderInput = promptFor("Enter in the gender, either 'female' or 'male'. NOTE: Input is format specific.", autoValid);
+  let genderInput = promptFor("Enter in the gender, either 'female' or 'male'. NOTE: Input is format specific.", autoValid);
+  let confirmedList = [];
   let confirmedGender = people.filter(function(element){
-    if(element.gender === userGenderInput){
+    if(element.gender == genderInput){
       return true;
     }
     else{
       return false;
     }
   })
+  if(confirmedGender.length > 0){
+    for(let i = 0; i < confirmedGender.length; i ++){
+      confirmedList.push(" " + confirmedGender[i].firstName + " " + confirmedGender[i].lastName);
+    }
+    alert(`The following have "${genderInput}" as their gender:\n ${confirmedList}`);
+  }
+  else if(confirmedGender.length == 0){
+    alert(`No person(s) is of "${genderInput}" gender.`);
+  }
+
   return confirmedGender;
 }
 
-
+//function for height trait
 function searchByHeight(people){
-  let userHeightInput = promptFor("Enter in the height in inches. For example, '71'. NOTE: Input is format specific.", autoValid);
+  let heightInput = promptFor("Enter in the height in inches. For example, '71'. NOTE: Input is format specific.", autoValid);
   let confirmedList = [];
   let confirmedHeight = people.filter(function(element){
-    if(element.height == userHeightInput){
+    if(element.height == heightInput){
       return true;
     }
     else{
       return false;
     }
   })
-
-  for(let i = 0; i < confirmedHeight.length; i ++){
-    confirmedList.push(confirmedHeight[i].firstName + " " + confirmedHeight[i].lastName);
+  if (confirmedHeight.length > 0){
+    for(let i = 0; i < confirmedHeight.length; i ++){
+      confirmedList.push(" " + confirmedHeight[i].firstName + " " + confirmedHeight[i].lastName);
+    }
+    alert(`The following have "${heightInput}" lbs as their weight:\n ${confirmedList}`);
   }
-  let feedback = `The following have ${userHeightInput} lbs as their weight: ${confirmedList}`;
-  alert(feedback);
+  else if(confirmedHeight.length == 0){
+    alert(`No person has a height of "${heightInput}" inches`);
+  }
   return confirmedHeight;
  
 }
 
+//function for weight trait
 function searchByWeight(people){
-  let userWeightInput = promptFor("Enter in the weight in pounds. For example, '175'. NOTE: Input is format specific.", autoValid);
+  let weightInput = promptFor("Enter in the weight in pounds. For example, '175'. NOTE: Input is format specific.", autoValid);
   let confirmedWeight = people.filter(function(element){
-    if(element.weight === userWeightInput){
-      return true;
-    }
-    else{
-      return false;
-    }
-  })
-  return confirmedWeight;
-}
-function searchByOccupation(people){
-  let userOccupationInput = promptFor("Enter in the weight in pounds. For example, '175'. NOTE: Input is format specific.", autoValid);
-  let confirmedWeight = people.filter(function(element){
-    if(element.weight === userWeightInput){
+    if(element.weight === weightInput){
       return true;
     }
     else{
@@ -193,11 +208,25 @@ function searchByOccupation(people){
   return confirmedWeight;
 }
 
+//function for occupation trait
+function searchByOccupation(people){
+  let occupationInput = promptFor("Enter in the occupation. For example, 'programmer'. NOTE: Input is format specific.", autoValid);
+  let confirmedOccupation = people.filter(function(element){
+    if(element.weight === occupationInput){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  return confirmedOccupation;
+}
+
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
 function searchByEyeColor(people){
-  let userEyeColorInput = promptFor("Enter in the eye color. For example, 'brown'. NOTE: Input is format specific.", autoValid);
+  let eyeColorInput = promptFor("Enter in the eye color. For example, 'brown'. NOTE: Input is format specific.", autoValid);
   let confirmedEyeColor = people.filter(function(element){
-    if(element.eyeColor === userEyeColorInput){
+    if(element.eyeColor === eyeColorInput){
       return true;
     }
     else{
@@ -206,8 +235,6 @@ function searchByEyeColor(people){
   })
   return confirmedEyeColor;
 }
-
-
 
 
 
@@ -237,6 +264,35 @@ function displayPerson(person){
   personInfo += "Eye Color: " + person.eyeColor + "\n";
   alert(personInfo);
 }
+
+//function to display family from the display menu options
+// function displayFamily(person, people){
+//   let parents = [];
+//   let sibilings = [];
+//   let confirmedParents = people.filter(function(element){
+//     if(element.id == person.parent[0] || element.id == person.parent[1]){
+//       return true;
+//     }
+//     else{
+//       return false;
+//     }
+//   })
+
+//   if (confirmedParents.length > 0){
+//     for(let i = 0; i < confirmedParents.length; i ++){
+//       parents.push(confirmedParents[i].firstName + " " + confirmedParent[i].lastName);
+//     }
+//   }
+//   else if (confirmedParents. length == 0){
+//     alert(`There are no parents for ${person}.`)
+//   }
+
+//   let feedback = `The following have ${userHeightInput} lbs as their weight: ${confirmedList}`;
+//   alert(feedback);
+//   return confirmedParents;
+ 
+// }
+
 
 //#endregion
 
