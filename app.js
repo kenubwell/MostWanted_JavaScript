@@ -241,7 +241,7 @@ function displayPerson(person){
 
 function displayPersonFamily(person){
   let personInfo = "Parents: " + person.parents.firstName + ' ' + person.parents.lastName + '\n';
-  personInfo += 'Spouse: ' + person.currentSpouse.firstName + ' ' + person.currentSpouse.lastName + '\n';
+  personInfo += "Spouse: " + person.currentSpouse.firstName + ' ' + person.currentSpouse.lastName + '\n';
   alert(personInfo);
 }
 //#endregion
