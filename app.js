@@ -17,7 +17,7 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
-      searchResults = searchListOfTraits(people);
+      searchResults = traitSearchOption(people);
       break;
       default:
     app(people); // restart app
@@ -84,51 +84,79 @@ function searchByName(people){
   return foundPerson[0];
 }
 
-//Function to resolve the no case associated with the intial prompt
+//function to prompt user to select single trait or multiple trait search
+function traitSearchOption(people){
+  let searchOption = promptFor('Enter one of the following numbers to begin searching by trait(s):\n Press "1": To search by a single trait\n Press "2": To search by multiple traits', autoValid);
+  switch(searchOption) {
+    case "1":
+       searchListOfTraits(people);
+      break;
+    case "2":
+       searchMultipleTraits(people);
+      break;
+    default:
+       alert("Invalid entry try again.");
+       traitSearchOption(people);
+     break;
+  }
+}
+
 //Function displays the list of individual traits that the user can search with
 function searchListOfTraits(people) {
-  let traitSelection = promptFor("Let's try searching by a single trait. Please enter in a number for one of the following options:\n 1: dob\n 2: gender\n 3: height\n 4: weight\n 5: eye color\n 6: occupation\n 7: Done Searching", autoValid);
+  let traitSelection = promptFor("Please enter in a number for one of the following trait options:\n 1: dob\n 2: gender\n 3: height\n 4: weight\n 5: eye color\n 6: occupation\n 7: Done Searching", autoValid);
   let listofPeople;
   let confirmedPerson;
   switch(traitSelection) {
      case "1":
-       listofPeople = searchByDOB(people);
-       alert(displayPeople(listofPeople));
+        listofPeople = searchByDOB(people);
+        alert(displayPeople(listofPeople));
        break;
      case "2":
-       listofPeople = searchByGender(people);
-       alert(displayPeople(listofPeople));
+        listofPeople = searchByGender(people);
+        alert(displayPeople(listofPeople));
        break;
      case "3":
-       listofPeople = searchByHeight(people);
-       alert(displayPeople(listofPeople));
+        listofPeople = searchByHeight(people);
+        alert(displayPeople(listofPeople));
        break;
      case "4":
-       listofPeople = searchByWeight(people);
-       alert(displayPeople(listofPeople));
+        listofPeople = searchByWeight(people);
+        alert(displayPeople(listofPeople));
        break;
      case "5":
-       listofPeople = searchByEyeColor(people);
-       alert(displayPeople(listofPeople));
+        listofPeople = searchByEyeColor(people);
+        alert(displayPeople(listofPeople));
        break;
      case "6":
-       listofPeople = searchByOccupation(people);
-       alert(displayPeople(listofPeople));
+        listofPeople = searchByOccupation(people);
+        alert(displayPeople(listofPeople));
        break;
      case "7":
-       app(people);
-       break;
+        app(people);
      default:
-      searchByTraits(people);
+        alert("Invalid entry try again.");
+        searchListOfTraits(people);
       break;
   }
     if (listofPeople.length == 1){
       confirmedPerson = listofPeople[0];
       mainMenu(confirmedPerson, people);
     }
-    else{
-      searchListOfTraits(listofPeople, people);
-    }
+    
+  traitSelection = promptFor(`Would you like to do another trait search to further filter down the list below. Press "1" for yes or Press "2" for no.\n ${displayPeople(listofPeople)}`, autoValid);
+  switch(traitSelection) {
+    case "1":
+      searchListOfTraits(listofPeople);
+      break;
+    case "2":
+      app(people);
+      break;
+    default:
+      alert("Invalid entry try. Taking you back to the trait search screen.");
+      searchListOfTraits(listofPeople);
+      break;
+  }
+
 
  }
 
