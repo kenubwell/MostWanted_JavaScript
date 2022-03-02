@@ -300,10 +300,10 @@ function displayPersonFamily(person){
   let spouseArray = []
   let dataArray = data
   parentArray += dataArray.filter(function(el){
-    let parentSlice = el.parents.slice()
-    if(el.id === parentSlice[0]){
+    let personSlice = personArray.parents.slice()
+    if(el.id === personSlice[0]){
       parentArray.push(`Parent: ${el.firstName + ' ' + el.lastName}`) + '\n';
-    } else if(el.id === parentSlice[1]){
+    } else if(el.id === personSlice[1]){
       parentArray.push(`Parent: ${el.firstName + ' ' + el.lastName}`) + '\n';
     }
   }) + '\n';
@@ -312,7 +312,8 @@ function displayPersonFamily(person){
       spouseArray.push(`Spouse: ${el.firstName + ' ' + el.lastName}`)
     }
   }) + '\n';
-  alert(parentArray && spouseArray);
+  alert(parentArray);
+  alert(spouseArray);
 }
 
 function displayPersonDescendant(person){
