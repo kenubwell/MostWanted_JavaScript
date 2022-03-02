@@ -45,9 +45,9 @@ function mainMenu(person, people){
     break;
     case "family":
     displayPersonFamily(person);
-    // TODO: get person's family
     break;
     case "descendants":
+    displayPersonDescendant(person);
     // TODO: get person's descendants
     break;
     case "restart":
@@ -294,6 +294,20 @@ function displayPersonFamily(person){
   alert(parentArray && spouseArray);
 }
 
+function displayPersonDescendant(person){
+  let personArray = person;
+  let descArray = []
+  let dataArray = data
+  descArray += dataArray.filter(function(el){
+    let parentSlice = el.parents.slice()
+    if(parentSlice[0] === personArray.id){
+      descArray.push(`Descendant: ${el.firstName + ' ' + el.lastName}`) + '\n';
+    } else if(parentSlice[1] === personArray.id){
+      descArray.push(`Descendant: ${el.firstName + ' ' + el.lastName}`) + '\n';
+    }
+  }) + '\n';
+  alert(descArray);
+}
 //#endregion
 
 
