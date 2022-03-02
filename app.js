@@ -17,7 +17,7 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
-      alert("Let's try searching by a single trait. You'll be given the option of multiple trait searches to narrow down the list of people, as needed. Press OK to begin.");
+      alert("Let's try searching by a single trait. As needed, you'll be given the option of additional trait searches to narrow down the list of people. Press OK to begin.");
       searchResults = searchListOfTraits(people);
       break;
       default:
@@ -55,7 +55,7 @@ function mainMenu(person, people){
     app(people); // restart
     break;
     case "quit":
-    return; // stop execution
+    throw new Error("Goodbye"); // stop execution
     default:
     return mainMenu(person, people); // ask again
   }
@@ -126,21 +126,21 @@ function searchListOfTraits(people) {
       confirmedPerson = listofPeople[0];
       mainMenu(confirmedPerson, people);
     }
-    
-  traitSelection = promptFor(`Would you like to do another trait search to further filter down the list below. Press "1" for yes or Press "2" for no.\n ${displayPeople(listofPeople)}`, autoValid);
-  switch(traitSelection) {
-    case "1":
-      searchListOfTraits(listofPeople);
-      break;
-    case "2":
-      app(people);
-      break;
-    default:
-      alert("Invalid entry try. Reverting back to the trait search screen.");
-      searchListOfTraits(listofPeople);
-      break;
-  }
-
+    else{
+    traitSelection = promptFor(`Would you like to do another trait search to further filter down the list below. Press "1" for yes or Press "2" for no.\n ${displayPeople(listofPeople)}`, autoValid);
+    switch(traitSelection) {
+      case "1":
+        searchListOfTraits(listofPeople);
+        break;
+      case "2":
+        app(people);
+        break;
+      default:
+        alert("Invalid entry try. Reverting back to the trait search screen.");
+        searchListOfTraits(listofPeople);
+        break;
+    }
+    }
 
  }
 
@@ -263,6 +263,8 @@ function displayPersonFamily(person, people){
   let personArray = person;
   let parentArray = []
   let spouseArray = []
+  let siblingArray = []
+  let newSibArray = []
   let dataArray = data
   parentArray += dataArray.filter(function(el){
     let personSlice = personArray.parents.slice()
@@ -274,10 +276,17 @@ function displayPersonFamily(person, people){
   });
   spouseArray += dataArray.filter(function(el){
     if(el.id === personArray.currentSpouse){
-      spouseArray.push(`${el.firstName + ' ' + el.lastName}`)
+      spouseArray.push(`${el.firstName + ' ' + el.lastName} \n`)
     }
   }) 
-  alert(`Parents:\n ${parentArray} \n Spouse: \n ${spouseArray}`);
+  siblingArray += dataArray.filter(function(el){
+    for (let i = 0; i < (el.parents).length; i++){
+      if(person.parents.includes(el.parents[i])){
+        siblingArray.push(`${el.firstName + ' ' + el.lastName} \n`)
+        newSibArray = [...new Set(siblingArray)];
+    }}
+  }) 
+  alert(`Parents:\n ${parentArray} \n Spouse: \n ${spouseArray} \n Siblings: \n ${newSibArray}`);
   return mainMenu(person,people);
 }
 
@@ -293,7 +302,7 @@ function displayPersonDescendant(person, people){
       descArray.push(`${el.firstName + ' ' + el.lastName} \n`);
     }
   })
-  alert(`Descendents: ${descArray}`);
+  alert(`Descendents: \n ${descArray}`);
   return mainMenu(person,people);
 }
 //#endregion
