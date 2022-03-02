@@ -26,7 +26,7 @@ function app(people){
   }
   
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
-  //mainMenu(searchResults, people);
+  mainMenu(searchResults, people);
 }
 
 // Menu function to call once you find who you are looking for
@@ -38,7 +38,7 @@ function mainMenu(person, people){
     return app(people); // restart
   }
 
-  let displayOption = promptFor("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
+  let displayOption = promptFor("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
 
   switch(displayOption){
     case "info":
@@ -82,7 +82,7 @@ function searchByName(people){
     }
   })
   // TODO: find the person single person object using the name they entered.
-  return mainMenu(foundPerson[0], people);
+  return foundPerson;
 }
 
 //Function to resolve the no case associated with the intial prompt
@@ -302,17 +302,18 @@ function displayPeople(people){
   }).join("\n"));
 }
 
-function displayPerson(person){
+function displayPerson(person, people){
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
-  let personInfo = "First Name: " + person.firstName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
-  personInfo += "Height: " + person.height + "\n";
-  personInfo += "Weight: " + person.weight + "\n";
-  personInfo += "DOB: " + person.dob + "\n";
-  personInfo += "Occupation: " + person.occupation + "\n";
-  personInfo += "Eye Color: " + person.eyeColor + "\n";
+  let personInfo = "First Name: " + person[0].firstName + "\n";
+  personInfo += "Last Name: " + person[0].lastName + "\n";
+  personInfo += "Height: " + person[0].height + "\n";
+  personInfo += "Weight: " + person[0].weight + "\n";
+  personInfo += "DOB: " + person[0].dob + "\n";
+  personInfo += "Occupation: " + person[0].occupation + "\n";
+  personInfo += "Eye Color: " + person[0].eyeColor + "\n";
   alert(personInfo);
+  return mainMenu(person,people);
 }
 
 
