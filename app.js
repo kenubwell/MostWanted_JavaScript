@@ -294,7 +294,7 @@ function displayPerson(person, people){
   return mainMenu(person,people);
 }
 
-function displayPersonFamily(person){
+function displayPersonFamily(person, people){
   let personArray = person;
   let parentArray = []
   let spouseArray = []
@@ -302,33 +302,34 @@ function displayPersonFamily(person){
   parentArray += dataArray.filter(function(el){
     let personSlice = personArray.parents.slice()
     if(el.id === personSlice[0]){
-      parentArray.push(`Parent: ${el.firstName + ' ' + el.lastName}`) + '\n';
+      parentArray.push(`${el.firstName + ' ' + el.lastName} \n`);
     } else if(el.id === personSlice[1]){
-      parentArray.push(`Parent: ${el.firstName + ' ' + el.lastName}`) + '\n';
+      parentArray.push(`${el.firstName + ' ' + el.lastName} \n`);
     }
-  }) + '\n';
+  });
   spouseArray += dataArray.filter(function(el){
     if(el.id === personArray.currentSpouse){
-      spouseArray.push(`Spouse: ${el.firstName + ' ' + el.lastName}`)
+      spouseArray.push(`${el.firstName + ' ' + el.lastName}`)
     }
-  }) + '\n';
-  alert(parentArray);
-  alert(spouseArray);
+  }) 
+  alert(`Parents:\n ${parentArray} \n Spouse: \n ${spouseArray}`);
+  return mainMenu(person,people);
 }
 
-function displayPersonDescendant(person){
+function displayPersonDescendant(person, people){
   let personArray = person;
   let descArray = []
   let dataArray = data
   descArray += dataArray.filter(function(el){
     let parentSlice = el.parents.slice()
     if(parentSlice[0] === personArray.id){
-      descArray.push(`Descendant: ${el.firstName + ' ' + el.lastName}`) + '\n';
+      descArray.push(`${el.firstName + ' ' + el.lastName} \n`);
     } else if(parentSlice[1] === personArray.id){
-      descArray.push(`Descendant: ${el.firstName + ' ' + el.lastName}`) + '\n';
+      descArray.push(`${el.firstName + ' ' + el.lastName} \n`);
     }
-  }) + '\n';
-  alert(descArray);
+  })
+  alert(`Descendents: ${descArray}`);
+  return mainMenu(person,people);
 }
 //#endregion
 
