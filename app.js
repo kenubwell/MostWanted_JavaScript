@@ -249,26 +249,18 @@ function displayPerson(person, people){
 }
 
 function displayPersonFamily(person){
-  let personArray = [person];
+  let personArray = person;
   let parentArray = []
   let spouseArray = []
-  let dataArray = [data]
-  parentArray = "Parents: " + personArray.filter(function(el){
-    if(el.parents === dataArray.match(el.parents)){
-      return dataArray.firstName
-    }
-  }) + ' ' + personArray.filter(function(el){
-    if(el.parents === dataArray.match(el.parents)){
-      return dataArray.lastName
+  let dataArray = data
+  parentArray = "Parents: " + dataArray.filter(function(el){
+    if(el.id === personArray.parents){
+      parentArray.push(el.firstName + ' ' + el.lastName)
     }
   }) + '\n';
-  spouseArray = "Spouse: " + personArray.filter(function(el){
-    if(el.currentSpouse === dataArray.match(el.currentSpouse)){
-      return dataArray.firstName
-    }
-  }) + ' ' + personArray.filter(function(el){
-    if(el.currentSpouse === dataArray.match(el.currentSpouse)){
-      return dataArray.lastName
+  spouseArray = "Spouse: " + dataArray.filter(function(el){
+    if(el.id === personArray.currentSpouse){
+      spouseArray.push(el.firstName + ' ' + el.lastName)
     }
   }) + '\n';
   alert(parentArray && spouseArray);
