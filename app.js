@@ -281,14 +281,14 @@ function displayPersonFamily(person){
   let parentArray = []
   let spouseArray = []
   let dataArray = data
-  parentArray = "Parents: " + dataArray.filter(function(el){
+  parentArray += dataArray.filter(function(el){
     if(el.id === personArray.parents){
-      parentArray.push(el.firstName + ' ' + el.lastName)
+      parentArray.push(`Parent: ${el.firstName + ' ' + el.lastName}`)
     }
   }) + '\n';
-  spouseArray = "Spouse: " + dataArray.filter(function(el){
+  spouseArray += dataArray.filter(function(el){
     if(el.id === personArray.currentSpouse){
-      spouseArray.push(el.firstName + ' ' + el.lastName)
+      spouseArray.push(`Spouse: ${el.firstName + ' ' + el.lastName}`)
     }
   }) + '\n';
   alert(parentArray && spouseArray);
