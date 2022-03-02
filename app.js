@@ -160,6 +160,24 @@ function searchListOfTraits(people) {
 
  }
 
+function searchMultipleTraits(people) {
+  let traitsSelection = promptFor("Pick a minimum of 2 or a maximum of 5 traits:\n 1: dob\n 2: gender\n 3: height\n 4: weight\n 5: eye color\n 6: occupation\n 7: when done with all search selections", autoValid);
+  let traitsList = [];
+
+  switch(traitsSelection) {
+    case "1":
+      dobSelected = promptFor();
+      break;
+    case "2":
+      genderSelected = promptFor();
+      break;
+    default:
+      alert("Invalid entry try. Taking you back to the trait search screen.");
+      searchListOfTraits(listofPeople);
+      break;
+  }
+
+}
 
  //TODO: add other trait filter functions here.
 
