@@ -160,6 +160,24 @@ function searchListOfTraits(people) {
 
  }
 
+function searchMultipleTraits(people) {
+  let traitsSelection = promptFor("Pick a minimum of 2 or a maximum of 5 traits:\n 1: dob\n 2: gender\n 3: height\n 4: weight\n 5: eye color\n 6: occupation\n 7: when done with all search selections", autoValid);
+  let traitsList = [];
+
+  switch(traitsSelection) {
+    case "1":
+      dobSelected = promptFor();
+      break;
+    case "2":
+      genderSelected = promptFor();
+      break;
+    default:
+      alert("Invalid entry try. Taking you back to the trait search screen.");
+      searchListOfTraits(listofPeople);
+      break;
+  }
+
+}
 
  //TODO: add other trait filter functions here.
 
@@ -276,28 +294,32 @@ function displayPerson(person, people){
   return mainMenu(person,people);
 }
 
-function displayPersonFamily(person){
-  let personArray = [person];
-  let personInfo = "Parents: " + personArray.filter(function(person){
-    if(person.parents == data.id){
-      return data.firstName
+function displayPersonFamily(people){
+  let personInfo = people.filter(function(element){
+    if(element.parents == person.id){
+      return element.firstName
     }
-  }) + ' ' + personArray.filter(function(person){
-    if(person.parents == data.id){
-      return data.lastName
+  }) + ' ' + people.filter(function(element){
+    if(element.parents == person.id){
+      return element.lastName
     }
   }) + '\n';
-  personInfo += "Spouse: " + personArray.filter(function(person){
-    if(person.currentSpouse == data.id){
-      return data.firstName
+  personInfo += "Spouse: " + people.filter(function(element){
+    if(element.currentSpouse == person.id){
+      return element.firstName
     }
-  }) + ' ' + personArray.filter(function(person){
-    if(person.currentSpouse == data.id){
-      return data.lastName
+  }) + ' ' + people.filter(function(element){
+    if(element.currentSpouse == person.id){
+      return element.lastName
     }
   }) + '\n';
   alert(personInfo);
 }
+
+
+
+
+
 
 //#endregion
 
