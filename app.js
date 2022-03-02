@@ -300,8 +300,11 @@ function displayPersonFamily(person){
   let spouseArray = []
   let dataArray = data
   parentArray += dataArray.filter(function(el){
-    if(el.id === personArray.parents){
-      parentArray.push(`Parent: ${el.firstName + ' ' + el.lastName}`)
+    let parentSlice = el.parents.slice()
+    if(el.id === parentSlice[0]){
+      parentArray.push(`Parent: ${el.firstName + ' ' + el.lastName}`) + '\n';
+    } else if(el.id === parentSlice[1]){
+      parentArray.push(`Parent: ${el.firstName + ' ' + el.lastName}`) + '\n';
     }
   }) + '\n';
   spouseArray += dataArray.filter(function(el){
