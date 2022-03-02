@@ -294,26 +294,22 @@ function displayPerson(person, people){
   return mainMenu(person,people);
 }
 
-function displayPersonFamily(people){
-  let personInfo = people.filter(function(element){
-    if(element.parents == person.id){
-      return element.firstName
-    }
-  }) + ' ' + people.filter(function(element){
-    if(element.parents == person.id){
-      return element.lastName
-    }
-  }) + '\n';
-  personInfo += "Spouse: " + people.filter(function(element){
-    if(element.currentSpouse == person.id){
-      return element.firstName
-    }
-  }) + ' ' + people.filter(function(element){
-    if(element.currentSpouse == person.id){
-      return element.lastName
+function displayPersonFamily(person){
+  let personArray = person;
+  let parentArray = []
+  let spouseArray = []
+  let dataArray = data
+  parentArray += dataArray.filter(function(el){
+    if(el.id === personArray.parents){
+      parentArray.push(`Parent: ${el.firstName + ' ' + el.lastName}`)
     }
   }) + '\n';
-  alert(personInfo);
+  spouseArray += dataArray.filter(function(el){
+    if(el.id === personArray.currentSpouse){
+      spouseArray.push(`Spouse: ${el.firstName + ' ' + el.lastName}`)
+    }
+  }) + '\n';
+  alert(parentArray && spouseArray);
 }
 
 
