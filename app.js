@@ -17,7 +17,8 @@ function app(people){
       break;
     case 'no':
       // TODO: search by traits
-      searchResults = traitSearchOption(people);
+      alert("Let's try searching by a single trait. You'll be given the option of multiple trait searches to narrow down the list of people, as needed. Press OK to begin.");
+      searchResults = searchListOfTraits(people);
       break;
       default:
     app(people); // restart app
@@ -84,23 +85,6 @@ function searchByName(people){
   return foundPerson[0];
 }
 
-//function to prompt user to select single trait or multiple trait search
-function traitSearchOption(people){
-  let searchOption = promptFor('Enter one of the following numbers to begin searching by trait(s):\n Press "1": To search by a single trait\n Press "2": To search by multiple traits', autoValid);
-  switch(searchOption) {
-    case "1":
-       searchListOfTraits(people);
-      break;
-    case "2":
-       searchMultipleTraits(people);
-      break;
-    default:
-       alert("Invalid entry try again.");
-       traitSearchOption(people);
-     break;
-  }
-}
-
 //Function displays the list of individual traits that the user can search with
 function searchListOfTraits(people) {
   let traitSelection = promptFor("Please enter in a number for one of the following trait options:\n 1: dob\n 2: gender\n 3: height\n 4: weight\n 5: eye color\n 6: occupation\n 7: Done Searching", autoValid);
@@ -152,32 +136,13 @@ function searchListOfTraits(people) {
       app(people);
       break;
     default:
-      alert("Invalid entry try. Taking you back to the trait search screen.");
+      alert("Invalid entry try. Reverting back to the trait search screen.");
       searchListOfTraits(listofPeople);
       break;
   }
 
 
  }
-
-function searchMultipleTraits(people) {
-  let traitsSelection = promptFor("Pick a minimum of 2 or a maximum of 5 traits:\n 1: dob\n 2: gender\n 3: height\n 4: weight\n 5: eye color\n 6: occupation\n 7: when done with all search selections", autoValid);
-  let traitsList = [];
-
-  switch(traitsSelection) {
-    case "1":
-      dobSelected = promptFor();
-      break;
-    case "2":
-      genderSelected = promptFor();
-      break;
-    default:
-      alert("Invalid entry try. Taking you back to the trait search screen.");
-      searchListOfTraits(listofPeople);
-      break;
-  }
-
-}
 
  //TODO: add other trait filter functions here.
 
@@ -196,7 +161,7 @@ function searchMultipleTraits(people) {
 }
 
 function searchByGender(people){
-  let genderInput = promptFor("Enter in the gender, either 'female' or 'male'.", autoValid);
+  let genderInput = promptFor("Enter in the gender, either 'female' or 'male'.", autoValid).toLowerCase();
   let confirmedGender = people.filter(function(element) {
     if(element.gender == genderInput) {
       return true;
@@ -238,7 +203,7 @@ function searchByHeight(people){
 
 //unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
 function searchByEyeColor(people){
-  let eyeColorInput = promptFor("Enter in the eye color. For example, 'brown'.", autoValid);
+  let eyeColorInput = promptFor("Enter in the eye color. For example, 'brown'.", autoValid).toLowerCase();
   let confirmedEyeColor = people.filter(function(element) {
     if(element.eyeColor == eyeColorInput) {
       return true;
@@ -251,7 +216,7 @@ function searchByEyeColor(people){
 }
 
 function searchByOccupation(people){
-  let occupationInput = promptFor("Enter in the occupation. For example, 'programmer'.", autoValid);
+  let occupationInput = promptFor("Enter in the occupation. For example, 'programmer'.", autoValid).toLowerCase();
   let confirmedOccupation = people.filter(function(element) {
     if(element.occupation == occupationInput) {
       return true;
