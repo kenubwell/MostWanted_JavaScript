@@ -45,7 +45,7 @@ function mainMenu(person, people){
     displayPerson(person);
     break;
     case "family":
-    displayFamily(person);
+    displayPersonFamily(person);
     // TODO: get person's family
     break;
     case "descendants":
@@ -238,25 +238,28 @@ function searchByEyeColor(people){
 
 function displayPersonFamily(person){
   let personArray = [person];
-  let personInfo = "Parents: " + personArray.filter(function(person){
-    if(person.parents == data.id){
-      return data.firstName
+  let parentArray = []
+  let spouseArray = []
+  let dataArray = [data]
+  parentArray = "Parents: " + personArray.filter(function(el){
+    if(el.parents === dataArray.match(el.parents)){
+      return dataArray.firstName
     }
-  }) + ' ' + personArray.filter(function(person){
-    if(person.parents == data.id){
-      return data.lastName
-    }
-  }) + '\n';
-  personInfo += "Spouse: " + personArray.filter(function(person){
-    if(person.currentSpouse == data.id){
-      return data.firstName
-    }
-  }) + ' ' + personArray.filter(function(person){
-    if(person.currentSpouse == data.id){
-      return data.lastName
+  }) + ' ' + personArray.filter(function(el){
+    if(el.parents === dataArray.match(el.parents)){
+      return dataArray.lastName
     }
   }) + '\n';
-  alert(personInfo);
+  spouseArray = "Spouse: " + personArray.filter(function(el){
+    if(el.currentSpouse === dataArray.match(el.currentSpouse)){
+      return dataArray.firstName
+    }
+  }) + ' ' + personArray.filter(function(el){
+    if(el.currentSpouse === dataArray.match(el.currentSpouse)){
+      return dataArray.lastName
+    }
+  }) + '\n';
+  alert(parentArray && spouseArray);
 }
 
 //#endregion
