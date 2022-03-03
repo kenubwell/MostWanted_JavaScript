@@ -16,7 +16,7 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      alert("Let's try searching by a single trait. As needed, you'll be given the option of additional trait searches to narrow down the list of people. Press OK to begin.");
+      alert("Let's try searching by a single trait. As needed, you'll be given the option of additional trait searches to narrow down the list of people.\n\nOn the otherhand, if your initial trait search returns a single person, you'll be sent to that person's menu options. Press OK to begin.");
       searchResults = searchListOfTraits(people);
       break;
       default:
@@ -37,7 +37,7 @@ function mainMenu(person, people){
     return app(people); // restart
   }
 
-  let displayOption = promptFor("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
+  let displayOption = promptFor("Found " + person.firstName + " " + person.lastName + ". Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", autoValid);
 
   switch(displayOption){
     case "info":
@@ -158,10 +158,11 @@ function searchListOfTraits(people) {
   }
     if (listofPeople.length == 1){
       confirmedPerson = listofPeople[0];
+      alert("Congrats. Your search returned a single person. You'll be sent to the menu options upon clicking OK.");
       mainMenu(confirmedPerson, people);
     }
     else{
-    traitSelection = promptFor(`Would you like to do another trait search to further filter down the list below. Press "1" for yes or Press "2" for no.\n ${displayPeople(listofPeople)}`, autoValid);
+    traitSelection = promptFor(`Would you like to do another trait search to further filter down the list below. Press "1" for yes or Press "2" for no.\n\n${displayPeople(listofPeople)}`, autoValid);
     switch(traitSelection) {
       case "1":
         searchListOfTraits(listofPeople);
@@ -350,7 +351,7 @@ function displayPersonFamily(person, people){
         newSibArray = [...new Set(siblingArray)];
     }}
   }) 
-  alert(`Parents:\n ${parentArray} \n Spouse: \n ${spouseArray} \n Siblings: \n ${newSibArray}`);
+  alert(`Parents:\n${parentArray} \nSpouse: \n${spouseArray} \nSiblings: \n${newSibArray}`);
   return mainMenu(person,people);
 }
   
