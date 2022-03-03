@@ -93,27 +93,63 @@ function searchListOfTraits(people) {
   switch(traitSelection) {
      case "1":
         listofPeople = searchByDOB(people);
+        if(listofPeople.length == "0"){
+          alert("No person has this specific trait.");
+          searchListOfTraits(people);
+        }
+        else{
         alert(displayPeople(listofPeople));
+        }
        break;
      case "2":
         listofPeople = searchByGender(people);
+        if(listofPeople.length == "0"){
+          alert("No person has this specific trait.");
+          searchListOfTraits(people);
+        }
+        else{
         alert(displayPeople(listofPeople));
+        }
        break;
      case "3":
         listofPeople = searchByHeight(people);
+        if(listofPeople.length == "0"){
+          alert("No person has this specific trait.");
+          searchListOfTraits(people);
+        }
+        else{
         alert(displayPeople(listofPeople));
+        }
        break;
      case "4":
         listofPeople = searchByWeight(people);
+        if(listofPeople.length == "0"){
+          alert("No person has this specific trait.");
+          searchListOfTraits(people);
+        }
+        else{
         alert(displayPeople(listofPeople));
+        }
        break;
      case "5":
         listofPeople = searchByEyeColor(people);
+        if(listofPeople.length == "0"){
+          alert("No person has this specific trait.");
+          searchListOfTraits(people);
+        }
+        else{
         alert(displayPeople(listofPeople));
+        }
        break;
      case "6":
         listofPeople = searchByOccupation(people);
+        if(listofPeople.length == "0"){
+          alert("No person has this specific trait.");
+          searchListOfTraits(people);
+        }
+        else{
         alert(displayPeople(listofPeople));
+        }
        break;
      case "7":
         app(people);
