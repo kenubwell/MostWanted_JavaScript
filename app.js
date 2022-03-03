@@ -345,7 +345,7 @@ function displayPersonFamily(person, people){
   }) 
   siblingArray += dataArray.filter(function(el){
     for (let i = 0; i < (el.parents).length; i++){
-      if(person.parents.includes(el.parents[i])){
+      if(person.parents.includes(el.parents[i]) && person.id != el.id){
         siblingArray.push(`${el.firstName + ' ' + el.lastName} \n`)
         newSibArray = [...new Set(siblingArray)];
     }}
