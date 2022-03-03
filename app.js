@@ -16,12 +16,11 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      // TODO: search by traits
       alert("Let's try searching by a single trait. As needed, you'll be given the option of additional trait searches to narrow down the list of people. Press OK to begin.");
       searchResults = searchListOfTraits(people);
       break;
       default:
-    app(people); // restart app
+      app(people); // restart app
       break;
   }
   
@@ -48,14 +47,14 @@ function mainMenu(person, people){
     displayPersonFamily(person);
     break;
     case "descendants":
-    displayPersonDescendant(person);
-    // TODO: get person's descendants
+    alert(`Descendants:\n\n${displayPeople(findPersonDescendants(person))}`);
+    mainMenu(person, people);
     break;
     case "restart":
     app(people); // restart
     break;
     case "quit":
-    throw new Error("Goodbye"); // stop execution
+    throw new Error("Goodbye"); // stop execution. Of note, the provided return (no value) was closing the program for most part except for a minor anomaly which throwing this error resolved.
     default:
     return mainMenu(person, people); // ask again
   }
@@ -68,7 +67,7 @@ function mainMenu(person, people){
 /////////////////////////////////////////////////////////////////
 //#region 
 
-//nearly finished function used to search through an array of people to find matching first and last name and return a SINGLE person object.
+//Function given by the instructors that allows users to search by name. Of note, it included a minor bug (intentional) that was fixed.
 function searchByName(people){
   let firstName = promptFor("What is the person's first name?", autoValid);
   let lastName = promptFor("What is the person's last name?", autoValid);
@@ -81,11 +80,10 @@ function searchByName(people){
       return false;
     }
   })
-  // TODO: find the person single person object using the name they entered.
-  return foundPerson[0];
+  return foundPerson[0]; //this was a bug that was fixed by include "[0]"
 }
 
-//Function displays the list of individual traits that the user can search with
+//Function displays the list of individual traits that the user can search with coupled with given an option to search again (e.g. multiple trait searches)
 function searchListOfTraits(people) {
   let traitSelection = promptFor("Please enter in a number for one of the following trait options:\n 1: dob\n 2: gender\n 3: height\n 4: weight\n 5: eye color\n 6: occupation\n 7: Done Searching", autoValid);
   let listofPeople;
@@ -180,8 +178,7 @@ function searchListOfTraits(people) {
 
  }
 
- //TODO: add other trait filter functions here.
-
+//function to search by people's DOB
  function searchByDOB(people){
   let dobInput = promptFor("Enter in the date of birth in the following format 'MM/DD/YYYY' for double digit months (e.g. 12/18/1952) or 'M/DD/YYYY' for single digit months (e.g. 1/18/1949)", autoValid);
   let confirmedDOB = people.filter(function(element) {
@@ -196,6 +193,7 @@ function searchListOfTraits(people) {
   return confirmedDOB;
 }
 
+//function to search by people's gender
 function searchByGender(people){
   let genderInput = promptFor("Enter in the gender, either 'female' or 'male'.", autoValid).toLowerCase();
   let confirmedGender = people.filter(function(element) {
@@ -209,6 +207,7 @@ function searchByGender(people){
   return confirmedGender;
   }
 
+//function to search by people's height
 function searchByHeight(people){
   let heightInput = promptFor("Enter in the height in inches. For example, '71'.", autoValid);
   let confirmedHeight = people.filter(function(element) {
@@ -223,6 +222,7 @@ function searchByHeight(people){
   return confirmedHeight;
 }
 
+//funciton to search by people's weight
  function searchByWeight(people) {
   let weightInput = promptFor("Enter in the weight in pounds. For example, '175'.", autoValid);
   let confirmedWeight = people.filter(function(element) {
@@ -237,7 +237,7 @@ function searchByHeight(people){
   return confirmedWeight;
 }
 
-//unfinished function to search through an array of people to find matching eye colors. Use searchByName as reference.
+//function to search peopel by their eye color
 function searchByEyeColor(people){
   let eyeColorInput = promptFor("Enter in the eye color. For example, 'brown'.", autoValid).toLowerCase();
   let confirmedEyeColor = people.filter(function(element) {
@@ -251,6 +251,7 @@ function searchByEyeColor(people){
   return confirmedEyeColor;
 }
 
+//function to search people by their occupation
 function searchByOccupation(people){
   let occupationInput = promptFor("Enter in the occupation. For example, 'programmer'.", autoValid).toLowerCase();
   let confirmedOccupation = people.filter(function(element) {
@@ -263,6 +264,32 @@ function searchByOccupation(people){
   })
 
   return confirmedOccupation;
+}
+
+//function to find person's descendants which calls the find children function (below)
+function findPersonDescendants(person){
+  let personsChildren = findPersonsChildren(person); 
+  let personsDescendants = [];
+  for(let i = 0; i < personsChildren.length; i++){
+    personsDescendants = personsChildren.concat(findPersonDescendants(personsChildren[i])); //concat method joins the values from the two arrays (this function and the find children function)
+  }
+  return personsDescendants;
+}
+
+
+//function to find the person's children
+function findPersonsChildren(person){
+  let dataArray = data;
+  let personsChildren = dataArray.filter(function(element) {
+    for(let i = 0; i < dataArray.length; i++){
+      if(element.parents[0] == person.id || element.parents[1] == person.id) {
+        return true;
+      }
+      else{
+        return false;
+      }}
+  })
+  return personsChildren;
 }
 
 
@@ -295,6 +322,7 @@ function displayPerson(person, people){
   return mainMenu(person,people);
 }
 
+//displays person's parents, spouse, and siblings (as applicable)
 function displayPersonFamily(person, people){
   let personArray = person;
   let parentArray = []
@@ -325,22 +353,8 @@ function displayPersonFamily(person, people){
   alert(`Parents:\n ${parentArray} \n Spouse: \n ${spouseArray} \n Siblings: \n ${newSibArray}`);
   return mainMenu(person,people);
 }
+  
 
-function displayPersonDescendant(person, people){
-  let personArray = person;
-  let descArray = []
-  let dataArray = data
-  descArray += dataArray.filter(function(el){
-    let parentSlice = el.parents.slice()
-    if(parentSlice[0] === personArray.id){
-      descArray.push(`${el.firstName + ' ' + el.lastName} \n`);
-    } else if(parentSlice[1] === personArray.id){
-      descArray.push(`${el.firstName + ' ' + el.lastName} \n`);
-    }
-  })
-  alert(`Descendents: \n ${descArray}`);
-  return mainMenu(person,people);
-}
 //#endregion
 
 
