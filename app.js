@@ -80,7 +80,7 @@ function searchByName(people){
       return false;
     }
   })
-  return foundPerson[0]; //this was a bug that was fixed by include "[0]"
+  return foundPerson[0]; //this was a bug that was fixed by including "[0]"
 }
 
 //Function displays the list of individual traits that the user can search with coupled with given an option to search again (e.g. multiple trait searches)
@@ -238,7 +238,7 @@ function searchByHeight(people){
   return confirmedWeight;
 }
 
-//function to search peopel by their eye color
+//function to search people by their eye color
 function searchByEyeColor(people){
   let eyeColorInput = promptFor("Enter in the eye color. For example, 'brown'.", autoValid).toLowerCase();
   let confirmedEyeColor = people.filter(function(element) {
