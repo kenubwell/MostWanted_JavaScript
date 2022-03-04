@@ -47,7 +47,7 @@ function mainMenu(person, people){
     displayPersonFamily(person);
     break;
     case "descendants":
-    alert(`Descendants:\n\n${displayPeople(findPersonDescendants(person))}`);
+    alert(`Descendants:\n\n${displayPeople(findPersonsDescendants(person))}`);
     mainMenu(person, people);
     break;
     case "restart":
@@ -86,8 +86,8 @@ function searchByName(people){
 //Function displays the list of individual traits that the user can search with coupled with given an option to search again (e.g. multiple trait searches)
 function searchListOfTraits(people) {
   let traitSelection = promptFor("Please enter in a number for one of the following trait options:\n 1: dob\n 2: gender\n 3: height\n 4: weight\n 5: eye color\n 6: occupation\n 7: Done Searching", autoValid);
-  let listofPeople;
-  let confirmedPerson;
+  let listofPeople = [];
+  let confirmedPerson = [];
   switch(traitSelection) {
      case "1":
         listofPeople = searchByDOB(people);
@@ -268,11 +268,11 @@ function searchByOccupation(people){
 }
 
 //function to find person's descendants which calls the find children function (below)
-function findPersonDescendants(person){
+function findPersonsDescendants(person){
   let personsChildren = findPersonsChildren(person); 
   let personsDescendants = [];
   for(let i = 0; i < personsChildren.length; i++){
-    personsDescendants = personsChildren.concat(findPersonDescendants(personsChildren[i])); //concat method joins the values from the two arrays (this function and the find children function)
+    personsDescendants = personsChildren.concat(findPersonsDescendants(personsChildren[i])); //concat method joins the values from the two arrays (this function and the find children function)
   }
   return personsDescendants;
 }
