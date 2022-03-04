@@ -16,14 +16,20 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      alert("Let's try searching by a single trait. As needed, you'll be given the option of additional trait searches to narrow down the list of people.\n\nOn the otherhand, if your initial trait search returns a single person, you'll be sent to that person's menu options. Press OK to begin.");
-      searchResults = searchListOfTraits(people);
-      break;
-      default:
-      app(people); // restart app
-      break;
+      searchResults = promptFor("Let's try searching by a trait.\nPress '1' for a single trait search \nPress '2' for a multiple trait search", autoValid);
+      switch(searchResults){
+        case "1":
+        searchResults = searchListOfTraits(people);
+        break;
+        case "2":
+        searchResults = multipleTraitSearch(people);
+        break;
+        default:
+        alert("Invalid entry. Reverting back to inital prompt.")  
+        app(people); // restart app
+        break;
   }
-  
+  }  
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   mainMenu(searchResults, people);
 }
@@ -83,102 +89,212 @@ function searchByName(people){
   return foundPerson[0]; //this was a bug that was fixed by including "[0]"
 }
 
-//Function displays the list of individual traits that the user can search with coupled with given an option to search again (e.g. multiple trait searches)
+//Function for single criteron trait search
 function searchListOfTraits(people) {
-  let traitSelection = promptFor("Please enter in a number for one of the following trait options:\n 1: dob\n 2: gender\n 3: height\n 4: weight\n 5: eye color\n 6: occupation\n 7: Done Searching", autoValid);
+  let traitSelection = promptFor("Please enter in a number for one of the following trait options:\n 1: dob\n 2: gender\n 3: height\n 4: weight\n 5: eye color\n 6: occupation", autoValid);
   let listofPeople = [];
   let confirmedPerson = [];
   switch(traitSelection) {
-     case "1":
-        listofPeople = searchByDOB(people);
-        if(listofPeople.length == "0"){
-          alert("No person has this specific trait.");
-          searchListOfTraits(people);
-        }
-        else{
-        alert(displayPeople(listofPeople));
-        }
-       break;
-     case "2":
-        listofPeople = searchByGender(people);
-        if(listofPeople.length == "0"){
-          alert("No person has this specific trait.");
-          searchListOfTraits(people);
-        }
-        else{
-        alert(displayPeople(listofPeople));
-        }
-       break;
-     case "3":
-        listofPeople = searchByHeight(people);
-        if(listofPeople.length == "0"){
-          alert("No person has this specific trait.");
-          searchListOfTraits(people);
-        }
-        else{
-        alert(displayPeople(listofPeople));
-        }
-       break;
-     case "4":
-        listofPeople = searchByWeight(people);
-        if(listofPeople.length == "0"){
-          alert("No person has this specific trait.");
-          searchListOfTraits(people);
-        }
-        else{
-        alert(displayPeople(listofPeople));
-        }
-       break;
-     case "5":
-        listofPeople = searchByEyeColor(people);
-        if(listofPeople.length == "0"){
-          alert("No person has this specific trait.");
-          searchListOfTraits(people);
-        }
-        else{
-        alert(displayPeople(listofPeople));
-        }
-       break;
-     case "6":
-        listofPeople = searchByOccupation(people);
-        if(listofPeople.length == "0"){
-          alert("No person has this specific trait.");
-          searchListOfTraits(people);
-        }
-        else{
-        alert(displayPeople(listofPeople));
-        }
-       break;
-     case "7":
-        app(people);
-     default:
-        alert("Invalid entry try again.");
-        searchListOfTraits(people);
-      break;
-  }
-    if (listofPeople.length == 1){
+    case "1":
+      listofPeople = searchByDOB(people);
+      if(listofPeople.length == 0){
+      alert("No person has this specific trait. Let's do a single trait search again.");
+      searchListOfTraits(people);
+      }
+      else if(listofPeople.length == 1){
       confirmedPerson = listofPeople[0];
-      alert("Congrats. Your search returned a single person. You'll be sent to the menu options upon clicking OK.");
+      alert(`Congrats. Your search returned a single person. You'll be sent to the menu options upon clicking OK.\n\n${displayPeople(listofPeople)}`);
       mainMenu(confirmedPerson, people);
-    }
-    else{
-    traitSelection = promptFor(`Would you like to do another trait search to further filter down the list below. Press "1" for yes or Press "2" for no.\n\n${displayPeople(listofPeople)}`, autoValid);
-    switch(traitSelection) {
-      case "1":
-        searchListOfTraits(listofPeople);
-        break;
-      case "2":
-        app(people);
-        break;
-      default:
-        alert("Invalid entry try. Reverting back to the trait search screen.");
-        searchListOfTraits(listofPeople);
-        break;
-    }
-    }
-
+      }
+      else{
+      alert(`Here is the list of person(s) based on your search. You'll be asked if you know the name of the person upon entering OK.\n\n${displayPeople(listofPeople)}`, autoValid);
+      app(people);
+      }
+    break;
+    case "2":
+      listofPeople = searchByGender(people);
+      if(listofPeople.length == "0"){
+      alert("No person has this specific trait. Let's do a single trait search again.");
+      searchListOfTraits(people);
+      }
+      else if(listofPeople.length == 1){
+      confirmedPerson = listofPeople[0];
+      alert(`Congrats. Your search returned a single person. You'll be sent to the menu options upon clicking OK.\n\n${displayPeople(listofPeople)}`);
+      mainMenu(confirmedPerson, people);
+      }
+      else{
+      alert(`Here is the list of person(s) based on your search. You'll be asked if you know the name of the person upon entering OK.\n\n${displayPeople(listofPeople)}`, autoValid);
+      app(people);
+      }
+    break;
+    case "3":
+      listofPeople = searchByHeight(people);
+      if(listofPeople.length == "0"){
+      alert("No person has this specific trait. Let's do a single trait search again.");
+      searchListOfTraits(people);
+      }
+      else if(listofPeople.length == 1){
+      confirmedPerson = listofPeople[0];
+      alert(`Congrats. Your search returned a single person. You'll be sent to the menu options upon clicking OK.\n\n${displayPeople(listofPeople)}`);
+      mainMenu(confirmedPerson, people);
+      }
+      else{
+      alert(`Here is the list of person(s) based on your search. You'll be asked if you know the name of the person upon entering OK.\n\n${displayPeople(listofPeople)}`, autoValid);
+      app(people);
+      }
+    break;
+    case "4":
+      listofPeople = searchByWeight(people);
+      if(listofPeople.length == "0"){
+      alert("No person has this specific trait. Let's do a single trait search again.");
+      searchListOfTraits(people);
+      }
+      else if(listofPeople.length == 1){
+      confirmedPerson = listofPeople[0];
+      alert(`Congrats. Your search returned a single person. You'll be sent to the menu options upon clicking OK.\n\n${displayPeople(listofPeople)}`);
+      mainMenu(confirmedPerson, people);
+      }
+      else{
+      alert(`Here is the list of person(s) based on your search. You'll be asked if you know the name of the person upon entering OK.\n\n${displayPeople(listofPeople)}`, autoValid);
+      app(people);
+      }
+    break;
+    case "5":
+      listofPeople = searchByEyeColor(people);
+      if(listofPeople.length == "0"){
+      alert("No person has this specific trait. Let's do a single trait search again.");
+      searchListOfTraits(people);
+      }
+      else if(listofPeople.length == 1){
+      confirmedPerson = listofPeople[0];
+      alert(`Congrats. Your search returned a single person. You'll be sent to the menu options upon clicking OK.\n\n${displayPeople(listofPeople)}`);
+      mainMenu(confirmedPerson, people);
+      }
+      else{
+      alert(`Here is the list of person(s) based on your search. You'll be asked if you know the name of the person upon entering OK.\n\n${displayPeople(listofPeople)}`, autoValid);
+      app(people);
+      }
+       break;
+    case "6":
+      listofPeople = searchByOccupation(people);
+      if(listofPeople.length == "0"){
+      alert("No person has this specific trait. Let's do a single trait search again.");
+      searchListOfTraits(people);
+      }
+      else if(listofPeople.length == 1){
+      confirmedPerson = listofPeople[0];
+      alert(`Congrats. Your search returned a single person. You'll be sent to the menu options upon clicking OK.\n\n${displayPeople(listofPeople)}`);
+      mainMenu(confirmedPerson, people);
+      }
+      else{
+      alert(`Here is the list of person(s) based on your search. You'll be asked if you know the name of the person upon entering OK.\n\n${displayPeople(listofPeople)}`, autoValid);
+      app(people);
+      }
+    break;
+    default:
+      alert("Invalid entry try again.");
+      searchListOfTraits(people);
+    break;
+  }
  }
 
+
+//Function for multiple trait search
+let traitCount = 0;
+function multipleTraitSearch(people) {
+  let traitSelection = promptFor("Enter in a maximum of 5 traits. Select a number for one of the following traits. Press '7' when done with your traits search:\n 1: dob\n 2: gender\n 3: height\n 4: weight\n 5: eye color\n 6: occupation\n 7: Done Searching", autoValid);
+  let listofPeople = [];
+  let confirmedPerson = [];
+  switch(traitSelection) {
+    case "1":
+      traitCount += 1;
+      
+      if (traitCount == "6"){
+        alert(`Sorry your trait selection was more than five. The following are the results from your five searches.\n\n${displayPeople(people)}`);
+        app(people);
+      }
+      else{
+      listofPeople = searchByDOB(people);
+      multipleTraitSearch(listofPeople);
+      }
+    break;
+    case "2":
+      traitCount += 1;
+      if (traitCount == "6"){
+        alert(`Sorry your trait selection was more than five. The following are the results from your five searches.\n\n${displayPeople(people)}`);
+        app(people);
+      }
+      else{
+      listofPeople = searchByGender(people);
+      multipleTraitSearch(listofPeople);
+      }
+    break;
+    case "3":
+      traitCount += 1;
+      if (traitCount == "6"){
+        alert(`Sorry your trait selection was more than five. The following are the results from your five searches.\n\n${displayPeople(people)}`);
+        app(people);
+      }
+      else{
+      listofPeople = searchByHeight(people);
+      multipleTraitSearch(listofPeople);
+      }
+    break;
+    case "4":
+      traitCount += 1;
+      if (traitCount == "6"){
+        alert(`Sorry your trait selection was more than five. The following are the results from your five searches.\n\n${displayPeople(people)}`);
+        app(people);
+      }
+      else{
+      listofPeople = searchByWeight(people);
+      multipleTraitSearch(listofPeople);
+      }
+    break;
+    case "5":
+      traitCount += 1;
+      if (traitCount == "6"){
+        alert(`Sorry your trait selection was more than five. The following are the results from your five searches.\n\n${displayPeople(people)}`);
+        app(people);
+      }
+      else{
+      listofPeople = searchByEyeColor(people);
+      multipleTraitSearch(listofPeople);
+      }
+    break;
+    case "6":
+      traitCount += 1;
+      if (traitCount == "6"){
+        alert(`Sorry your trait selection was more than five. The following are the results from your five searches.\n\n${displayPeople(people)}`);
+        app(people);
+      }
+      else{
+      listofPeople = searchByOccupation(people);
+      multipleTraitSearch(listofPeople);
+      }
+    break;
+    case "7":
+      if (people.length == 1){
+        confirmedPerson = people[0];
+        alert(`Congrats. Your search returned a single person. You'll be sent to the menu options upon clicking OK.\n\n${displayPeople(people)}`);
+        mainMenu(confirmedPerson, people);
+      }
+      else if (people.length == 0){
+        alert("No person(s) have all of the traits that you entered.")
+        app(people);
+      }
+      else{
+        alert(`Here is the list of people based on your search. You'll be asked if you know the name of the person upon entering OK.\n\n${displayPeople(people)}`, autoValid);
+        app(people);
+      }
+    break;
+    default:
+    alert("Invalid entry try again.");
+    multipleTraitSearch(people);
+    break;
+  }
+ 
+}
 //function to search by people's DOB
  function searchByDOB(people){
   let dobInput = promptFor("Enter in the date of birth in the following format 'MM/DD/YYYY' for double digit months (e.g. 12/18/1952) or 'M/DD/YYYY' for single digit months (e.g. 1/18/1949)", autoValid);
